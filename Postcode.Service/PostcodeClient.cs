@@ -21,7 +21,7 @@ public class PostcodeClient
     /// </summary>
     /// <param name="postcode">郵便番号 (７桁整数値)。</param>
     /// <returns>郵便番号 API レスポンス データフォーマット。取得に失敗した場合、空のデータを返却します。</returns>
-    public static async Task<ApiResult> GetResourceAsync(int postcode) => await GetResourceAsync(PostcodeEngine.ApiKey, postcode);
+    public static async Task<ApiResult> GetResourceAsync(string postcode) => await GetResourceAsync(PostcodeEngine.ApiKey, postcode);
 
     /// <summary>
     /// 郵便番号 API 要求を非同期操作として送信します。
@@ -30,10 +30,10 @@ public class PostcodeClient
     /// <param name="postcode">郵便番号 (７桁整数値)。</param>
     /// <returns>郵便番号 API レスポンス データフォーマット。取得に失敗した場合、空のデータを返却します。</returns>
     /// <exception cref="ArgumentException">無効な郵便番号であったときに発生する例外です。</exception>
-    public static async Task<ApiResult> GetResourceAsync(string key, int postcode)
+    public static async Task<ApiResult> GetResourceAsync(string key, string postcode)
     {
         string postcodeUri = "api/v5/postcodes/";
-        string url = _BaseUrl + postcodeUri + postcode.ToString("D7"); // ７桁
+        string url = _BaseUrl + postcodeUri + postcode; // ７桁
         string response = await GetHttpResponse(key, url);
 
         ApiResult[]? result = null;
